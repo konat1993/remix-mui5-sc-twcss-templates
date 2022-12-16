@@ -7,6 +7,7 @@ import { hygraph } from '~/lib/hygraph.server'
 
 import { isPreviewMode } from '~/utils/preview-mode.server'
 import { PreviewBanner } from '~/components/preview-banner'
+import styled from "styled-components"
 
 type Article = {
   id: string
@@ -47,14 +48,24 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json({ ...data, isInPreview: preview })
 }
 
+type StyledH1Props = {
+  underline: "hover" | "none"
+}
 
+const StyledH1 = styled.h1<StyledH1Props>`
+  color: #0080007b;
+  background-color: ${({theme}) => theme.colors.main};
+  &:hover {
+  text-decoration: ${({ underline }) => underline === "hover" ? "underline" : 'none'};
+  }
+`
 export default function Index() {
   const { articles, isInPreview } = useLoaderData<LoaderData>()
 
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
       {isInPreview && <PreviewBanner />}
-      <h1>Welcome to Remix</h1>
+      <StyledH1 underline="hover">Welcome to Remix</StyledH1>
       <ul>
         {articles.map((article) => (
           <li key={article.id}>
