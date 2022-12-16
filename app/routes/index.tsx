@@ -54,7 +54,7 @@ export default function Index() {
   return (
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
       {isInPreview && <PreviewBanner />}
-      <h1>Welcome to Remix</h1>
+      <h1 className="text-orange-500 text-3xl">Welcome to Remix</h1>
       <ul>
         {articles.map((article) => (
           <li key={article.id}>
