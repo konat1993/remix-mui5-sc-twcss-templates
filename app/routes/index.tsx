@@ -7,6 +7,9 @@ import { hygraph } from '~/lib/hygraph.server'
 
 import { isPreviewMode } from '~/utils/preview-mode.server'
 import { PreviewBanner } from '~/components/preview-banner'
+import { Button } from "@mui/material"
+
+import {styled} from "@mui/material/styles"
 
 type Article = {
   id: string
@@ -47,6 +50,10 @@ export const loader: LoaderFunction = async ({ request }) => {
   return json({ ...data, isInPreview: preview })
 }
 
+const StyledButton = styled(Button)`
+  border: 3px solid red;
+`
+
 
 export default function Index() {
   const { articles, isInPreview } = useLoaderData<LoaderData>()
@@ -55,6 +62,7 @@ export default function Index() {
     <div style={{ fontFamily: 'system-ui, sans-serif', lineHeight: '1.4' }}>
       {isInPreview && <PreviewBanner />}
       <h1>Welcome to Remix</h1>
+      <StyledButton>Hello</StyledButton>
       <ul>
         {articles.map((article) => (
           <li key={article.id}>
